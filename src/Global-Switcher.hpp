@@ -1,4 +1,6 @@
+#pragma once
 #include "GlobalManager.hpp"
+#include "CMemoryManagerSwitcher.hpp"
 void *operator new(size_t count) {
   IMemoryManager *cur_alloc = CGlobalManager::TopAllocator();
   void *cur_ptr = cur_alloc->Alloc(count + sizeof(IMemoryManager *));

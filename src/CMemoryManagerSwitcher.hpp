@@ -4,13 +4,12 @@
 
 #ifndef ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP
 #define ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP
-#include "MemoryManager.hpp"
 #include "GlobalManager.hpp"
 class CMemoryManagerSwitcher {
  private:
   size_t counter_;
  public:
-  explicit CMemoryManagerSwitcher(size_t counter_);
+  CMemoryManagerSwitcher() = default;
   void SwitchAllocator(IMemoryManager *manager_);
   ~CMemoryManagerSwitcher();
 };
