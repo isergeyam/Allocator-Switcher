@@ -6,7 +6,6 @@
 #define ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP
 #include "MemoryManager.hpp"
 #include "GlobalManager.hpp"
-namespace __sg_lib {
 class CMemoryManagerSwitcher {
  private:
   size_t counter_;
@@ -15,5 +14,4 @@ class CMemoryManagerSwitcher {
   void SwitchAllocator(IMemoryManager *manager_);
   ~CMemoryManagerSwitcher();
 };
-}
 #endif //ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP

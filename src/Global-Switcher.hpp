@@ -1,5 +1,4 @@
 #include "GlobalManager.hpp"
-using namespace __sg_lib;
 void *operator new(size_t count) {
   IMemoryManager *cur_alloc = CGlobalManager::TopAllocator();
   void *cur_ptr = cur_alloc->Alloc(count + sizeof(IMemoryManager *));

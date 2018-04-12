@@ -1,7 +1,6 @@
 #include "DefaultAllocator.hpp"
 #include "MemoryManager.hpp"
 #include <new>
-namespace __sg_lib {
 class CGlobalManager {
 private:
   static SManagerNode *current_node;
@@ -19,4 +18,3 @@ public:
   static void PushAllocator(IMemoryManager *new_manager);
   static void PopAllocator();
 };
-} //__sg_lib
