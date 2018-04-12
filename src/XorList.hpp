@@ -1,6 +1,4 @@
 #pragma once
-#ifndef _XOR_LIST_H_
-#define _XOR_LIST_H_
 #include <cstddef>
 #include <iostream>
 #include <iterator>
@@ -227,4 +225,3 @@ public:
 template <typename T, typename _Alloc>
 typename XorList<T, _Alloc>::_Node_alloc_type
     XorList<T, _Alloc>::_M_node_allocator;
-#endif

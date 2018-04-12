@@ -2,15 +2,19 @@
 // Created by sg on 12.04.18.
 //
 
-#ifndef ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP
-#define ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP
+#pragma once
 #include "GlobalManager.hpp"
 class CMemoryManagerSwitcher {
  private:
   size_t counter_;
  public:
   CMemoryManagerSwitcher() = default;
-  void SwitchAllocator(IMemoryManager *manager_);
-  ~CMemoryManagerSwitcher();
+  void SwitchAllocator(IMemoryManager *manager_) {
+    CGlobalManager::PushAllocator(manager_);
+    ++counter_;
+  };
+  ~CMemoryManagerSwitcher() {
+    for (size_t i=0;i<counter_;++i)
+      CGlobalManager::PopAllocator();
+  }
 };
-#endif //ALLOCATOR_SWITCHER_CMEMORYSWITCHER_HPP

@@ -2,18 +2,28 @@
 // Created by sg on 12.04.18.
 //
 
-#ifndef ALLOCATOR_SWITCHER_CSTACKALLOCATORWRAPPER_HPP
-#define ALLOCATOR_SWITCHER_CSTACKALLOCATORWRAPPER_HPP
+#pragma once
 #include "StackAllocator.hpp"
 #include "MemoryManager.hpp"
-template<typename _Tp>
 class CStackAllocatorWrapper : public IMemoryManager {
  private:
-  StackAllocator<_Tp> *m_allocator;
+  StackAllocator<char> *m_allocator;
  public:
   CStackAllocatorWrapper();
   void *Alloc(size_t size) override;
   void Free(void *ptr) override;
   ~CStackAllocatorWrapper() override;
 };
-#endif //ALLOCATOR_SWITCHER_CSTACKALLOCATORWRAPPER_HPP
+void *CStackAllocatorWrapper::Alloc(size_t size) {
+  return m_allocator->allocate(size);
+}
+void CStackAllocatorWrapper::Free(void *ptr) {
+  m_allocator->deallocate(reinterpret_cast<char*>(ptr), 0);
+}
+CStackAllocatorWrapper::~CStackAllocatorWrapper() {
+  std::free(m_allocator);
+}
+CStackAllocatorWrapper::CStackAllocatorWrapper() {
+  m_allocator = new(std::malloc(sizeof(StackAllocator<char>))) StackAllocator<char>;
+}
+

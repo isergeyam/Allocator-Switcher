@@ -1,8 +1,8 @@
-#ifndef ALLOCATOR_SWITCHER_DEFAULTALLOCATOR_HPP
-#define ALLOCATOR_SWITCHER_DEFAULTALLOCATOR_HPP
+#pragma once
 #include "MemoryManager.hpp"
 class CDefaultAllocator : public IMemoryManager {
   void *Alloc(std::size_t __n) override ;
   void Free(void *ptr) override;
 };
-#endif
+void *CDefaultAllocator::Alloc(std::size_t __n) { return std::malloc(__n); }
+void CDefaultAllocator::Free(void *ptr) { free(ptr); }

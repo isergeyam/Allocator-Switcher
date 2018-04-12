@@ -1,5 +1,4 @@
-#ifndef _GLOBAL_MANAGER_HPP_
-#define _GLOBAL_MANAGER_HPP_
+#pragma once
 #include "DefaultAllocator.hpp"
 #include "MemoryManager.hpp"
 #include <new>
@@ -7,7 +6,7 @@ class CGlobalManager {
  public:
   struct SManagerNode{
     IMemoryManager *current_manager;
-    SManagerNode(IMemoryManager *current_manager, SManagerNode *prev_node);
+    SManagerNode(IMemoryManager *current_manager, SManagerNode *prev_node) : current_manager(current_manager), prev_node(prev_node) {}
     SManagerNode *prev_node;
   };
  private:
@@ -17,8 +16,13 @@ class CGlobalManager {
   ~CGlobalManager() = delete;
   CGlobalManager(const CGlobalManager &) = delete;
   CGlobalManager &operator=(const CGlobalManager &) = delete;
-  static IMemoryManager *TopAllocator();
-  static void PushAllocator(IMemoryManager *new_manager);
-  static void PopAllocator();
+  static IMemoryManager *TopAllocator() { return current_node->current_manager; }
+  static void PushAllocator(IMemoryManager *new_manager) {
+    current_node = new(std::malloc(sizeof(SManagerNode))) SManagerNode(new_manager, current_node);
+  }
+  static void PopAllocator() {
+    current_node = current_node->prev_node;
+  }
 };
-#endif
+CGlobalManager::SManagerNode* CGlobalManager::current_node =
+    new (std::malloc(sizeof(SManagerNode))) SManagerNode(new (std::malloc(sizeof(CDefaultAllocator))) CDefaultAllocator, nullptr);

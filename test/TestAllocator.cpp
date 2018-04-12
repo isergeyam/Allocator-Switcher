@@ -42,7 +42,7 @@ void process_sample(size_t n1, size_t n2, const std::string &str) {
             << std::chrono::duration<double, std::milli>(end - begin).count()
             << " ms\n";
   begin = std::chrono::steady_clock::now();
-  auto m_allocator = new CStackAllocatorWrapper<int>;
+  auto m_allocator = new CStackAllocatorWrapper;
   CMemoryManagerSwitcher m_switcher;
   m_switcher.SwitchAllocator(m_allocator);
   auto l2 =

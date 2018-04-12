@@ -1,5 +1,4 @@
-#ifndef IMEMORY_MANAGER_HPP
-#define IMEMORY_MANAGER_HPP
+#pragma  once
 #include <cstdlib>
 class IMemoryManager {
 public:
@@ -7,4 +6,3 @@ public:
   virtual void Free(void *ptr) = 0;
   virtual ~IMemoryManager() = default;
 };
-#endif

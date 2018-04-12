@@ -2,12 +2,15 @@
 // Created by sg on 12.04.18.
 //
 
-#ifndef ALLOCATOR_SWITCHER_CRUNTIMEHEAP_HPP
-#define ALLOCATOR_SWITCHER_CRUNTIMEHEAP_HPP
+#pragma once
 #include <cstdlib>
 class CRuntimeHeapStrategy {
   static void* Alloc(size_t count);
   static void Free(void* ptr);
 };
-
-#endif //ALLOCATOR_SWITCHER_CRUNTIMEHEAP_HPP
+void *CRuntimeHeapStrategy::Alloc(size_t count) {
+  return std::malloc(count);
+}
+void CRuntimeHeapStrategy::Free(void * ptr) {
+  std::free(ptr);
+}
