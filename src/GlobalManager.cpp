@@ -3,12 +3,16 @@
 //
 #include "GlobalManager.hpp"
 namespace __sg_lib {
-IMemoryManager *CGlobalManager::GetCurrentAllocator() { return current_manager; }
-void CGlobalManager::SetAllocator(IMemoryManager *new_manager) {
-  prev_manager = new_manager;
-  current_manager = new_manager;
+IMemoryManager *CGlobalManager::TopAllocator() { return current_node->current_manager; }
+void CGlobalManager::PushAllocator(IMemoryManager *new_manager) {
+  current_node = new(std::malloc(sizeof(SManagerNode))) SManagerNode(new_manager, current_node);
 }
-IMemoryManager *CGlobalManager::current_manager =
-    new (std::malloc(sizeof(CDefaultAllocator))) CDefaultAllocator;
+CGlobalManager::SManagerNode *CGlobalManager::current_node =
+    new (std::malloc(sizeof(SManagerNode))) SManagerNode(new (std::malloc(sizeof(CDefaultAllocator))) CDefaultAllocator, nullptr);
+void CGlobalManager::PopAllocator() {
+  current_node = current_node->prev_node;
+}
+CGlobalManager::SManagerNode::SManagerNode(IMemoryManager *current_manager, CGlobalManager::SManagerNode *prev_node)
+    : current_manager(current_manager), prev_node(prev_node) {}
 }
 
