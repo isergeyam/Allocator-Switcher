@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(Allocator_Switcher)
 
 set(CMAKE_CXX_STANDARD 11)
-
+include_directories(src)
 set(SOURCE_FILES
         src/DefaultAllocator.hpp
         src/Global-Switcher.hpp

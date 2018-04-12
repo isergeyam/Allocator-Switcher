@@ -4,8 +4,8 @@
 
 #ifndef ALLOCATOR_SWITCHER_CALLOCATEDON_HPP
 #define ALLOCATOR_SWITCHER_CALLOCATEDON_HPP
-template<typename AllocatorStrategy>
 #include <cstddef>
+template<typename AllocatorStrategy>
 class CAllocatedOn {
   void* operator new(size_t count) {
     return AllocatorStrategy::Alloc(count);

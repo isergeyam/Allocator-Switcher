@@ -1,4 +1,4 @@
-#include "../src/Global-Switcher.hpp"
+#include "Global-Switcher.hpp"
 #include <iostream>
 #include <iterator>
 #include <vector>
