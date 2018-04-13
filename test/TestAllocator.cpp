@@ -42,16 +42,19 @@ void process_sample(size_t n1, size_t n2, const std::string &str) {
             << std::chrono::duration<double, std::milli>(end - begin).count()
             << " ms\n";
   begin = std::chrono::steady_clock::now();
-  auto m_allocator = new CStackAllocatorWrapper;
+  IMemoryManager *m_allocator = new CStackAllocatorWrapper;
   CMemoryManagerSwitcher m_switcher;
   m_switcher.SwitchAllocator(m_allocator);
-  auto l2 =
-      process_operations<_Container<int, std::allocator<int>>>(n1, n2, mvec);
-  end = std::chrono::steady_clock::now();
-  std::cout << "Stack allocator " + str << ":\t"
-            << std::chrono::duration<double, std::milli>(end - begin).count()
-            << " ms\n";
-  assert(std::equal(l1.begin(), l1.end(), l2.begin()));
+  {
+    auto l2 =
+        process_operations<_Container<int, std::allocator<int>>>(n1, n2, mvec);
+    end = std::chrono::steady_clock::now();
+    std::cout << "Stack allocator " + str << ":\t"
+              << std::chrono::duration<double, std::milli>(end - begin).count()
+              << " ms\n";
+    assert(std::equal(l1.begin(), l1.end(), l2.begin()));
+  }
+  //m_switcher.PopAllocator();
   delete m_allocator;
 }
 int main() {

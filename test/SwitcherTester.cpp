@@ -1,12 +1,11 @@
 #include "Global-Switcher.hpp"
-#include <iostream>
-#include <iterator>
-#include <vector>
+#include "CStackAllocatorWrapper.hpp"
 int main() {
-  void *raw_ptr = ::operator new(sizeof(std::vector<int>));
-  std::vector<int> *ptr = new (raw_ptr) std::vector<int>(10, 2);
-  std::copy(ptr->begin(), ptr->end(),
-            std::ostream_iterator<int>(std::cout, " "));
-  delete ptr;
+  IMemoryManager *m_manager = new CStackAllocatorWrapper;
+  CMemoryManagerSwitcher m_switcher;
+  m_switcher.SwitchAllocator(m_manager);
+  void *ptr = operator new(10);
+  operator delete(ptr);
+  delete m_manager;
   return 0;
 }

@@ -17,6 +17,6 @@ set(SOURCE_FILES
         src/CCurrentMemoryManagerStrategy.hpp
         src/CStackAllocatorWrapper.hpp
         src/Global-Switcher.hpp)
-add_executable(Allocator_Switcher ${SOURCE_FILES} test/SwitcherTester.cpp)
+add_executable(SimpleTest ${SOURCE_FILES} test/SwitcherTester.cpp)
 add_executable(XorListTest ${SOURCES_FILE} test/XorListTest.cpp)
 add_executable(AllocatorTest ${SOURCES_FILE} test/TestAllocator.cpp)
