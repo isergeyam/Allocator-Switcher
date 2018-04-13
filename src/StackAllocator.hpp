@@ -27,8 +27,8 @@ private:
     delete &(alloc_num_.get());
   }
   template<typename _Tp>
-  _Tp* m_alloc(T x = T()) {
-    return new (std::malloc(sizeof(T))) T(x);
+  _Tp* m_alloc(_Tp x = _Tp()) {
+    return new (std::malloc(sizeof(_Tp))) _Tp(x);
   }
 
 public:
@@ -52,7 +52,7 @@ public:
         memory_(*m_alloc(memory_)),
         head_(*m_alloc<void*>()),
         prev_alloc_(*m_alloc(prev_alloc_)),
-        alloc_num_(*m_alloc(1)) {}
+        alloc_num_(*m_alloc<size_t>(1)) {}
   StackAllocator(const StackAllocator &other) noexcept
       : allocated_memory_(other.allocated_memory_),
         memory_(other.memory_),

@@ -41,11 +41,11 @@ void process_sample(size_t n1, size_t n2, const std::string &str) {
   std::cout << "Standard allocator " + str << ":\t"
             << std::chrono::duration<double, std::milli>(end - begin).count()
             << " ms\n";
-  begin = std::chrono::steady_clock::now();
   IMemoryManager *m_allocator = new CStackAllocatorWrapper;
   CMemoryManagerSwitcher m_switcher;
   m_switcher.SwitchAllocator(m_allocator);
   {
+    begin = std::chrono::steady_clock::now();
     auto l2 =
         process_operations<_Container<int, std::allocator<int>>>(n1, n2, mvec);
     end = std::chrono::steady_clock::now();
