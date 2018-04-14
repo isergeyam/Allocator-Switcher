@@ -1,6 +1,7 @@
 #pragma once
 #include "MemoryManager.hpp"
 class CDefaultAllocator : public IMemoryManager {
+ public:
   void *Alloc(std::size_t __n) override ;
   void Free(void *ptr) override;
 };

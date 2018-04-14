@@ -21,6 +21,7 @@ void CStackAllocatorWrapper::Free(void *ptr) {
   m_allocator->deallocate(reinterpret_cast<char*>(ptr), 0);
 }
 CStackAllocatorWrapper::~CStackAllocatorWrapper() {
+  m_allocator->~StackAllocator();
   std::free(m_allocator);
 }
 CStackAllocatorWrapper::CStackAllocatorWrapper() {

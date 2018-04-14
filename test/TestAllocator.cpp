@@ -1,5 +1,5 @@
+#define ALLOCATOR_DEBUG
 #include "XorList.hpp"
-#include <cassert>
 #include <chrono>
 #include <list>
 #include <vector>
@@ -27,7 +27,8 @@ _List process_operations(size_t n1, size_t n2, const std::vector<int> &mvec) {
   return mlist;
 }
 template <template <class, class> class _Container>
-void process_sample(size_t n1, size_t n2, const std::string &str) {
+void process_sample(size_t n1, size_t n2, const std::string &str_alloc, const std::string &str_list) {
+  int *my_leak = new int;
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<int> distr;
@@ -38,29 +39,25 @@ void process_sample(size_t n1, size_t n2, const std::string &str) {
   auto l1 =
       process_operations<_Container<int, std::allocator<int>>>(n1, n2, mvec);
   auto end = std::chrono::steady_clock::now();
-  std::cout << "Standard allocator " + str << ":\t"
+  std::cout << str_alloc + " allocator " + str_list << ":\t"
             << std::chrono::duration<double, std::milli>(end - begin).count()
             << " ms\n";
-  IMemoryManager *m_allocator = new CStackAllocatorWrapper;
-  CMemoryManagerSwitcher m_switcher;
-  m_switcher.SwitchAllocator(m_allocator);
-  {
-    begin = std::chrono::steady_clock::now();
-    auto l2 =
-        process_operations<_Container<int, std::allocator<int>>>(n1, n2, mvec);
-    end = std::chrono::steady_clock::now();
-    std::cout << "Stack allocator " + str << ":\t"
-              << std::chrono::duration<double, std::milli>(end - begin).count()
-              << " ms\n";
-    assert(std::equal(l1.begin(), l1.end(), l2.begin()));
-  }
-  //m_switcher.PopAllocator();
-  delete m_allocator;
 }
 int main() {
   size_t n1, n2;
   std::cin >> n1 >> n2;
-  process_sample<std::list>(n1, n2, "list");
-  process_sample<XorList>(n1, n2, "xorlist");
+  IMemoryManager *m_def_allocator = new CAllocatorDebugWrapper<CDefaultAllocator>;
+  IMemoryManager* m_stack_allocator = new CAllocatorDebugWrapper<CStackAllocatorWrapper>;
+  {
+    CMemoryManagerSwitcher m_switcher;
+    m_switcher.SwitchAllocator(m_def_allocator);
+    process_sample<std::list>(n1, n2, "default", "list");
+    process_sample<XorList>(n1, n2, "default", "xorlist");
+    m_switcher.SwitchAllocator(m_stack_allocator);
+    process_sample<std::list>(n1, n2, "stack", "list");
+    process_sample<XorList>(n1, n2, "stack", "xorlist");
+  }
+  delete m_stack_allocator;
+  delete m_def_allocator;
   return 0;
 }

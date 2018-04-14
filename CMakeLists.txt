@@ -16,7 +16,8 @@ set(SOURCE_FILES
         src/CRuntimeHeapStrategy.hpp
         src/CCurrentMemoryManagerStrategy.hpp
         src/CStackAllocatorWrapper.hpp
-        src/Global-Switcher.hpp)
+        src/Global-Switcher.hpp src/CAllocatorDebugWrapper.hpp src/CMAllocator.hpp)
 add_executable(SimpleTest ${SOURCE_FILES} test/SwitcherTester.cpp)
 add_executable(XorListTest ${SOURCES_FILE} test/XorListTest.cpp)
 add_executable(AllocatorTest ${SOURCES_FILE} test/TestAllocator.cpp)
+add_executable(GeneralTest ${SOURCES_FILE} test/GeneralTest.cpp)
