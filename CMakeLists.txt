@@ -15,7 +15,7 @@ set(SOURCE_FILES
         src/CAllocatedOn.hpp
         src/CRuntimeHeapStrategy.hpp
         src/CCurrentMemoryManagerStrategy.hpp
-        src/CStackAllocatorWrapper.hpp
+        src/CAllocatorWrapper.hpp
         src/Global-Switcher.hpp src/CAllocatorDebugWrapper.hpp src/CMAllocator.hpp)
 add_executable(SimpleTest ${SOURCE_FILES} test/SwitcherTester.cpp)
 add_executable(XorListTest ${SOURCES_FILE} test/XorListTest.cpp)

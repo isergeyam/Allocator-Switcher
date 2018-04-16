@@ -4,7 +4,7 @@
 #include <list>
 #include <vector>
 #include <random>
-#include "CStackAllocatorWrapper.hpp"
+#include "CAllocatorWrapper.hpp"
 #include "Global-Switcher.hpp"
 template <typename _List>
 _List process_operations(size_t n1, size_t n2, const std::vector<int> &mvec) {
@@ -28,7 +28,7 @@ _List process_operations(size_t n1, size_t n2, const std::vector<int> &mvec) {
 }
 template <template <class, class> class _Container>
 void process_sample(size_t n1, size_t n2, const std::string &str_alloc, const std::string &str_list) {
-  int *my_leak = new int;
+  auto my_leak = new int; // deliberate memory leak
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<int> distr;

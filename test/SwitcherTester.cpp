@@ -1,7 +1,7 @@
 #include "Global-Switcher.hpp"
-#include "CStackAllocatorWrapper.hpp"
+#include "CAllocatorWrapper.hpp"
 int main() {
-  IMemoryManager *m_manager = new CStackAllocatorWrapper;
+  IMemoryManager *m_manager = new CAllocatorWrapper;
   CMemoryManagerSwitcher m_switcher;
   m_switcher.SwitchAllocator(m_manager);
   void *ptr = operator new(10);
