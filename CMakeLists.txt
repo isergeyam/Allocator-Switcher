@@ -9,7 +9,7 @@ set(SOURCE_FILES
         src/MemoryManager.hpp
         src/DefaultAllocator.hpp
         src/GlobalManager.hpp
-        src/StackAllocator.hpp
+        ../xor-list/StackAllocator.hpp
         src/XorList.hpp
         src/CMemoryManagerSwitcher.hpp
         src/CAllocatedOn.hpp

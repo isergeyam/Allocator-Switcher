@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "StackAllocator.hpp"
+#include "../../xor-list/StackAllocator.hpp"
 #include "MemoryManager.hpp"
 class CStackAllocatorWrapper : public IMemoryManager {
  private:

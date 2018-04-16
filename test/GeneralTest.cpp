@@ -7,7 +7,7 @@
 #include "CCurrentMemoryManagerStrategy.hpp"
 #include "XorList.hpp"
 #include <gtest/gtest.h>
-#include "StackAllocator.hpp"
+#include "../../xor-list/StackAllocator.hpp"
 class StrategyTest : ::testing::Test {
  public:
   template<typename _Tp>
