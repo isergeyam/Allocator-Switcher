@@ -1,3 +1,4 @@
 [submodule "Stack-Allocator"]
 	path = Stack-Allocator
 	url = https://github.com/isergeyam/Stack-Allocator
+	branch = develop

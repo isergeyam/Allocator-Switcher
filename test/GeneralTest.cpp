@@ -7,7 +7,7 @@
 #include "CCurrentMemoryManagerStrategy.hpp"
 #include <gtest/gtest.h>
 #include <CAllocatorWrapper.hpp>
-#include "../../xor-list/XorList.hpp"
+#include "../Stack-Allocator/src/XorList.hpp"
 #include "TestLib.hpp"
 template<typename _Tp>
 class XorListHeapWrapper : public CAllocatedOn<CRuntimeHeapStrategy>, public XorList<_Tp> {};
