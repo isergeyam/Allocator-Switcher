@@ -5,22 +5,26 @@
 #include "CAllocatedOn.hpp"
 #include "CRuntimeHeapStrategy.hpp"
 #include "CCurrentMemoryManagerStrategy.hpp"
-#include "XorList.hpp"
 #include <gtest/gtest.h>
-#include "../../xor-list/StackAllocator.hpp"
-class StrategyTest : ::testing::Test {
+#include <CAllocatorWrapper.hpp>
+#include "../../xor-list/XorList.hpp"
+#include "TestLib.hpp"
+template<typename _Tp>
+class XorListHeapWrapper : public CAllocatedOn<CRuntimeHeapStrategy>, public XorList<_Tp> {};
+template<typename _Tp>
+class XorListManagerWrapper : public CAllocatedOn<CCurrentMemoryManagerStrategy>, public XorList<_Tp> {};
+class StrategyTest : public ::testing::Test {
  public:
-  template<typename _Tp>
-  class XorListHeapWrapper : public XorList<_Tp>, public CAllocatedOn<CRuntimeHeapStrategy> {};
-  template<typename _Tp>
-  class XorListManagerWrapper : public XorList<_Tp>, public CAllocatedOn<CCurrentMemoryManagerStrategy> {};
- private:
   CMemoryManagerSwitcher my_switcher;
-  StackAllocator<int> m_allocatoru
-  XorListHeapWrapper<int> m_heap_list;
-  XorListManagerWrapper<int> m_manager_list;
+  IMemoryManager *m_allocator;
 };
-int main (int argc, char **argv) {
+TEST_F(StrategyTest, GenetalStrategyTest) {
+  m_allocator = m_alloc<CStackAllocatorWrapper>();
+  my_switcher.SwitchAllocator(m_allocator);
+  process_sample<XorListHeapWrapper<int>>(1000, 1000, "default", "xorlist");
+  process_sample<XorListManagerWrapper<int>>(1000, 1000, "stack", "xorlist");
+}
+int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
-  return  RUN_ALL_TESTS();
+  return RUN_ALL_TESTS();
 }

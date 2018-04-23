@@ -7,11 +7,12 @@
 #include <cstddef>
 template<typename AllocatorStrategy>
 class CAllocatedOn {
+ public:
   void* operator new(size_t count) {
     return AllocatorStrategy::Alloc(count);
   }
   void operator delete(void *ptr) {
-    return AllocatorStrategy::Free(ptr);
+    AllocatorStrategy::Free(ptr);
   }
 };
 
