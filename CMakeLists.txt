@@ -9,8 +9,8 @@ set(SOURCE_FILES
         src/MemoryManager.hpp
         src/DefaultAllocator.hpp
         src/GlobalManager.hpp
-        ../xor-list/StackAllocator.hpp
-        ../xor-list/XorList.hpp
+        Stack-Allocator/src/StackAllocator.hpp
+        Stack-Allocator/src/XorList.hpp
         src/CMemoryManagerSwitcher.hpp
         src/CAllocatedOn.hpp
         src/CRuntimeHeapStrategy.hpp

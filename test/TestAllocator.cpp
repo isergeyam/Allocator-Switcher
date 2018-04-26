@@ -1,4 +1,4 @@
-//#define ALLOCATOR_DEBUG
+#define ALLOCATOR_DEBUG
 #include "XorList.hpp"
 #include <chrono>
 #include <list>
@@ -8,7 +8,7 @@
 #include "Global-Switcher.hpp"
 #include "TestLib.hpp"
 int main() {
-  size_t n1=1000, n2=1000;
+  size_t n1=1000000, n2=1000000;
   //std::cin >> n1 >> n2;
   IMemoryManager *m_def_allocator = new CAllocatorDebugWrapper<CDefaultAllocator>;
   IMemoryManager* m_stack_allocator = new CAllocatorDebugWrapper<CStackAllocatorWrapper>;
