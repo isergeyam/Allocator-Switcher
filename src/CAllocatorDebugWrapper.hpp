@@ -18,6 +18,7 @@ class CAllocatorDebugWrapper : public IMemoryManager {
   explicit CAllocatorDebugWrapper();
   void *Alloc(size_t size) override;
   void Free(void *ptr) override;
+  const char *Name() override;
   ~CAllocatorDebugWrapper() override;
 };
 template<typename _Alloc>
@@ -46,4 +47,8 @@ CAllocatorDebugWrapper<_Alloc>::~CAllocatorDebugWrapper() {
 #endif
   my_manager->~_Alloc();
   std::free(my_manager);
+}
+template<typename _Alloc>
+const char *CAllocatorDebugWrapper<_Alloc>::Name() {
+  return my_manager->Name();
 }

@@ -15,6 +15,9 @@ class CStackAllocatorWrapper : public IMemoryManager {
   void Free(void *ptr) override {
     (void) ptr;
   }
+  const char *Name() override {
+    return "stack";
+  }
   CStackAllocatorWrapper(const CStackAllocatorWrapper&) = delete;
   CStackAllocatorWrapper& operator=(const CStackAllocatorWrapper&) = delete;
   CStackAllocatorWrapper() = default;

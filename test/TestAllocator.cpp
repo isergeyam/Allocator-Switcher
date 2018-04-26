@@ -6,6 +6,7 @@
 #include <random>
 #include "CAllocatorWrapper.hpp"
 #include "Global-Switcher.hpp"
+#include "CMemoryManagerSwitcher.hpp"
 #include "TestLib.hpp"
 int main() {
   size_t n1=1000000, n2=1000000;
