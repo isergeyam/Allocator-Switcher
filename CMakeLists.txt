@@ -19,6 +19,7 @@ set(SOURCE_FILES
         src/Global-Switcher.hpp src/CAllocatorDebugWrapper.hpp src/CMAllocator.hpp src/TestLib.hpp)
 add_executable(AllocatorTest ${SOURCES_FILE} test/TestAllocator.cpp)
 add_executable(GeneralTest ${SOURCES_FILE} test/GeneralTest.cpp)
+add_executable(TestOverload ${SOURCES_FILE} test/TestOverload.cpp)
 target_link_libraries(GeneralTest gtest)
 if (UNIX)
     target_link_libraries(GeneralTest pthread)

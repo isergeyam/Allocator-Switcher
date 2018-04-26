@@ -12,7 +12,7 @@ template<typename _Alloc>
 class CAllocatorDebugWrapper : public IMemoryManager {
  private:
   _Alloc *my_manager;
-  std::map<void*, size_t, std::less<void*>, CMAllocator<void*>> my_map;
+  std::map<void*, std::pair<size_t, size_t>, std::less<>, CMAllocator<void*>> my_map;
   size_t alloc_num;
  public:
   explicit CAllocatorDebugWrapper();
@@ -27,7 +27,7 @@ template<typename _Alloc>
 void *CAllocatorDebugWrapper<_Alloc>::Alloc(size_t size) {
   void *ans = my_manager->Alloc(size);
 #ifdef ALLOCATOR_DEBUG
-  my_map.insert(std::make_pair(ans, ++alloc_num));
+  my_map.insert(std::make_pair(ans, std::make_pair(++alloc_num, size)));
 #endif
   return ans;
 }
@@ -42,7 +42,7 @@ template<typename _Alloc>
 CAllocatorDebugWrapper<_Alloc>::~CAllocatorDebugWrapper() {
 #ifdef ALLOCATOR_DEBUG
   for(auto &it : my_map) {
-    std::cerr << "Memory leak on allocation " << it.second << " on address " << it.first << std::endl;
+    std::cerr << "Memory leak of " << it.second.second << " bytes on allocation " << it.second.first << " on address " << it.first << std::endl;
   }
 #endif
   my_manager->~_Alloc();

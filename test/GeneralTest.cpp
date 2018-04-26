@@ -7,6 +7,7 @@
 #include "CCurrentMemoryManagerStrategy.hpp"
 #include <gtest/gtest.h>
 #include <CAllocatorWrapper.hpp>
+#include <CMemoryManagerSwitcher.hpp>
 #include "../Stack-Allocator/src/XorList.hpp"
 #include "TestLib.hpp"
 template<typename _Tp>
