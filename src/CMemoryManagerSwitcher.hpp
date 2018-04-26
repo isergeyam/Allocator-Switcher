@@ -20,7 +20,7 @@ class CMemoryManagerSwitcher {
 //    }
 //  }
   ~CMemoryManagerSwitcher() {
-    for (size_t i=0;i<counter_;++i)
+    for (size_t i = 0; i < counter_; ++i)
       CGlobalManager::PopAllocator();
   }
 };

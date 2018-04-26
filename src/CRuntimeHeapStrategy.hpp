@@ -5,12 +5,12 @@
 #pragma once
 #include <cstdlib>
 class CRuntimeHeapStrategy {
-  static void* Alloc(size_t count);
-  static void Free(void* ptr);
+  static void *Alloc(size_t count);
+  static void Free(void *ptr);
 };
 void *CRuntimeHeapStrategy::Alloc(size_t count) {
   return std::malloc(count);
 }
-void CRuntimeHeapStrategy::Free(void * ptr) {
+void CRuntimeHeapStrategy::Free(void *ptr) {
   std::free(ptr);
 }

@@ -3,8 +3,8 @@
 //
 #pragma once
 class CCurrentMemoryManagerStrategy {
-  static void* Alloc(size_t count);
-  static void Free(void* ptr);
+  static void *Alloc(size_t count);
+  static void Free(void *ptr);
 
 };
 void *CCurrentMemoryManagerStrategy::Alloc(size_t count) {

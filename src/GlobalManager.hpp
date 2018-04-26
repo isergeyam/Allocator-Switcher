@@ -5,9 +5,10 @@
 #include <new>
 class CGlobalManager {
  public:
-  struct SManagerNode{
+  struct SManagerNode {
     IMemoryManager *current_manager;
-    SManagerNode(IMemoryManager *current_manager, SManagerNode *prev_node) : current_manager(current_manager), prev_node(prev_node) {}
+    SManagerNode(IMemoryManager *current_manager, SManagerNode *prev_node)
+        : current_manager(current_manager), prev_node(prev_node) {}
     SManagerNode *prev_node;
   };
  private:
@@ -17,7 +18,7 @@ class CGlobalManager {
   ~CGlobalManager() = delete;
   CGlobalManager(const CGlobalManager &) = delete;
   CGlobalManager &operator=(const CGlobalManager &) = delete;
-  static IMemoryManager *TopAllocator() { return (current_node == nullptr) ? nullptr : current_node->current_manager; }
+  static IMemoryManager *TopAllocator() { return (current_node==nullptr) ? nullptr : current_node->current_manager; }
   static void PushAllocator(IMemoryManager *new_manager) {
     current_node = new(std::malloc(sizeof(SManagerNode))) SManagerNode(new_manager, current_node);
   }
@@ -26,6 +27,6 @@ class CGlobalManager {
     current_node = current_node->prev_node;
     std::free(del_node);
   }
-  static constexpr size_t offset = sizeof(IMemoryManager*) + (sizeof(IMemoryManager*) % alignof(std::max_align_t ));
+  static constexpr size_t offset = sizeof(IMemoryManager *) + (sizeof(IMemoryManager *)%alignof(std::max_align_t));
 };
-CGlobalManager::SManagerNode* CGlobalManager::current_node = nullptr;
+CGlobalManager::SManagerNode *CGlobalManager::current_node = nullptr;

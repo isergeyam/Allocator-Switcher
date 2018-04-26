@@ -9,7 +9,7 @@ class CStackAllocatorWrapper : public IMemoryManager {
  private:
   StackRealAllocator m_alloc;
  public:
-  void* Alloc(size_t num_) override {
+  void *Alloc(size_t num_) override {
     return m_alloc.allocate(num_);
   }
   void Free(void *ptr) override {
@@ -18,7 +18,7 @@ class CStackAllocatorWrapper : public IMemoryManager {
   const char *Name() override {
     return "stack";
   }
-  CStackAllocatorWrapper(const CStackAllocatorWrapper&) = delete;
-  CStackAllocatorWrapper& operator=(const CStackAllocatorWrapper&) = delete;
+  CStackAllocatorWrapper(const CStackAllocatorWrapper &) = delete;
+  CStackAllocatorWrapper &operator=(const CStackAllocatorWrapper &) = delete;
   CStackAllocatorWrapper() = default;
 };

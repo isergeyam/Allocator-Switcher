@@ -9,10 +9,9 @@
 #include "CMemoryManagerSwitcher.hpp"
 #include "TestLib.hpp"
 int main() {
-  size_t n1=1000000, n2=1000000;
-  //std::cin >> n1 >> n2;
+  size_t n1 = 100000, n2 = 100000;
   IMemoryManager *m_def_allocator = new CAllocatorDebugWrapper<CDefaultAllocator>;
-  IMemoryManager* m_stack_allocator = new CAllocatorDebugWrapper<CStackAllocatorWrapper>;
+  IMemoryManager *m_stack_allocator = new CAllocatorDebugWrapper<CStackAllocatorWrapper>;
   CMemoryManagerSwitcher m_switcher;
   m_switcher.SwitchAllocator(m_def_allocator);
   process_sample<std::list<int>>(n1, n2, "default", "list");

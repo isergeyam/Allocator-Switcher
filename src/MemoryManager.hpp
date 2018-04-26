@@ -1,9 +1,9 @@
 #pragma  once
 #include <cstdlib>
 class IMemoryManager {
-public:
+ public:
   virtual void *Alloc(size_t size) = 0;
   virtual void Free(void *ptr) = 0;
-  virtual const char * Name() = 0;
+  virtual const char *Name() = 0;
   virtual ~IMemoryManager() = default;
 };

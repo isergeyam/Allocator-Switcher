@@ -12,7 +12,7 @@ template<typename _Alloc>
 class CAllocatorDebugWrapper : public IMemoryManager {
  private:
   _Alloc *my_manager;
-  std::map<void*, std::pair<size_t, size_t>, std::less<>, CMAllocator<void*>> my_map;
+  std::map<void *, std::pair<size_t, size_t>, std::less<>, CMAllocator<void *>> my_map;
   size_t alloc_num;
  public:
   explicit CAllocatorDebugWrapper();
@@ -22,7 +22,8 @@ class CAllocatorDebugWrapper : public IMemoryManager {
   ~CAllocatorDebugWrapper() override;
 };
 template<typename _Alloc>
-CAllocatorDebugWrapper<_Alloc>::CAllocatorDebugWrapper() : my_manager(new (std::malloc(sizeof(_Alloc))) _Alloc), alloc_num(0) {}
+CAllocatorDebugWrapper<_Alloc>::CAllocatorDebugWrapper()
+    : my_manager(new(std::malloc(sizeof(_Alloc))) _Alloc), alloc_num(0) {}
 template<typename _Alloc>
 void *CAllocatorDebugWrapper<_Alloc>::Alloc(size_t size) {
   void *ans = my_manager->Alloc(size);
@@ -41,8 +42,9 @@ void CAllocatorDebugWrapper<_Alloc>::Free(void *ptr) {
 template<typename _Alloc>
 CAllocatorDebugWrapper<_Alloc>::~CAllocatorDebugWrapper() {
 #ifdef ALLOCATOR_DEBUG
-  for(auto &it : my_map) {
-    std::cerr << "Memory leak of " << it.second.second << " bytes on allocation " << it.second.first << " on address " << it.first << std::endl;
+  for (auto &it : my_map) {
+    std::cerr << "Memory leak of " << it.second.second << " bytes on allocation " << it.second.first << " on address "
+              << it.first << std::endl;
   }
 #endif
   my_manager->~_Alloc();
