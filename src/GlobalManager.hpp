@@ -26,5 +26,6 @@ class CGlobalManager {
     current_node = current_node->prev_node;
     std::free(del_node);
   }
+  static constexpr size_t offset = sizeof(IMemoryManager*) + (sizeof(IMemoryManager*) % alignof(std::max_align_t ));
 };
 CGlobalManager::SManagerNode* CGlobalManager::current_node = nullptr;
