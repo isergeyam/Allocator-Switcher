@@ -30,7 +30,7 @@ _List process_operations(size_t n1, size_t n2, const std::vector<int> &mvec) {
 template<typename _Container>
 void process_sample(size_t n1, size_t n2, const std::string &str_alloc, const std::string &str_list) {
   CGlobalManager::SetTrack(true);
-  void* my_leak = operator new(1); // deliberate memory leak
+  void *my_leak = operator new(1); // deliberate memory leak
   CGlobalManager::SetTrack(false);
   std::random_device rd;
   std::mt19937 gen(rd());
