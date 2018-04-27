@@ -7,7 +7,7 @@
 #include "MemoryManager.hpp"
 class CStackAllocatorWrapper : public IMemoryManager {
  private:
-  StackAllocator<char>::StackRealAllocator m_alloc;
+  StackRealAllocator m_alloc;
  public:
   void *Alloc(size_t num_) override {
     return m_alloc.allocate(num_);
