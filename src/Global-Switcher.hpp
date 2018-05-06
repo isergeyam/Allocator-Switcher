@@ -4,7 +4,7 @@
 #include <cstddef>
 void *operator new(size_t count) {
   IMemoryManager
-      *cur_alloc = (CGlobalManager::TopManager()==nullptr) ? nullptr : CGlobalManager::TopManager()->getMy_manager();
+      *cur_alloc = (CGlobalManager::TopManager()==nullptr) ? nullptr : CGlobalManager::TopManager();
   if (CGlobalManager::GetTrack()) {
     if (cur_alloc!=nullptr)
       std::cout << "Allocating on " << cur_alloc->Name() << " allocator" << std::endl;
